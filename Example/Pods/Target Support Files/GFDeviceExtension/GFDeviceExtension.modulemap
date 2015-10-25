@@ -1,6 +1,0 @@
-framework module GFDeviceExtension {
-  umbrella header "GFDeviceExtension-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -22,7 +22,7 @@ pod "GFDeviceExtension"
 
 ## Author
 
-Guglielmo Faglioni, guglielmo.faglioni@icloud.com
+Guglielmo Faglioni, g@guidev.it
 
 ## License
 

@@ -26,7 +26,7 @@ DESC
   s.license          = 'MIT'
   s.author           = { "Guglielmo Faglioni" => "g@guidev.it" }
   s.source           = { :git => "https://github.com/guidev/GFDeviceExtension.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/gui_dev'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
