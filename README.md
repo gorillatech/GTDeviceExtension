@@ -1,6 +1,5 @@
 # GFDeviceExtension
 
-[![CI Status](http://img.shields.io/travis/Guglielmo Faglioni/GFDeviceExtension.svg?style=flat)](https://travis-ci.org/Guglielmo Faglioni/GFDeviceExtension)
 [![Version](https://img.shields.io/cocoapods/v/GFDeviceExtension.svg?style=flat)](http://cocoapods.org/pods/GFDeviceExtension)
 [![License](https://img.shields.io/cocoapods/l/GFDeviceExtension.svg?style=flat)](http://cocoapods.org/pods/GFDeviceExtension)
 [![Platform](https://img.shields.io/cocoapods/p/GFDeviceExtension.svg?style=flat)](http://cocoapods.org/pods/GFDeviceExtension)
