@@ -54,6 +54,9 @@ extension UIDevice {
         case "iPhone6,1", "iPhone6,2":                  model = "iPhone 5S"
         case "iPhone7,2":                               model = "iPhone 6"
         case "iPhone7,1":                               model = "iPhone 6 Plus"
+        case "iPhone8,1":                               model = "iPhone 6S"
+        case "iPhone8,2":                               model = "iPhone 6S Plus"
+        
             
         case "iPad1,1":                                 model = "iPad 1"
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":model = "iPad 2"
