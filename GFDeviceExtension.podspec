@@ -1,12 +1,12 @@
 
 Pod::Spec.new do |s|
   s.name             = "GFDeviceExtension"
-  s.version          = "0.1.1"
-  s.summary          = "UIDevice extension for easier access to some of device info."
+  s.version          = "0.1.2"
+  s.summary          = "UIDevice and UIApplication extension for easier access to some device and app infos."
 
 
   s.description      = <<-DESC
-UIDevice extension for easier access to some of device info. It's compeletly appstore safe. You can easily access device model, code, family, orientation, free sapace and more.
+UIDevice extension for easier access to some of device info. It's compeletly App Store safe. You can easily get the device model, code, family, orientation, free sapace and more You can also get the current app version and build.
 DESC
 
   s.homepage         = "https://github.com/guidev/GFDeviceExtension"
