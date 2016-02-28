@@ -147,17 +147,17 @@ extension UIDevice {
 
 extension UIApplication {
     
-    func applicationVersion() -> String {
+    public var applicationVersion: String {
         
         return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
     }
     
-    func applicationBuild() -> String {
+    public var applicationBuild: String {
         
         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
     }
     
-    func versionBuild() -> String {
+    public var versionBuild: String {
         
         let version = self.applicationVersion()
         let build = self.applicationBuild()
