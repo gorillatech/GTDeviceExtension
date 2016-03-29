@@ -2,7 +2,7 @@
 //  GFDeviceExtension.swift
 //  Guglielmo Faglioni
 //
-//  Created by Guglielmo Faglioni on 2/17/15.
+//  Created by Gorilla Technologies on 2/17/15.
 //  Copyright (c) 2015 Guglielmo Faglioni. All rights reserved.
 //
 
