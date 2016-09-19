@@ -1,5 +1,5 @@
 //
-//  GFDeviceExtension.swift
+//  GTDeviceExtension.swift
 //  Guglielmo Faglioni
 //
 //  Created by Gorilla Technologies on 2/17/15.
