@@ -9,44 +9,38 @@
 import UIKit
 
 extension UIDevice {
-    
+
     //Device Code : iPhone7,2, iPhone6,1, ...
     public var deviceCode: String {
-        var sysInfo: [CChar] = Array(count: sizeof(utsname), repeatedValue: 0)
-        
-        let code = sysInfo.withUnsafeMutableBufferPointer {
-            (inout ptr: UnsafeMutableBufferPointer<CChar>) -> String in
-            uname(UnsafeMutablePointer<utsname>(ptr.baseAddress))
-            let machinePtr = ptr.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))
-            return String.fromCString(machinePtr)!
-        }
-        
-        return code
+        var name: [Int32] = [CTL_HW, HW_MACHINE]
+        var size: Int = 2
+        sysctl(&name, 2, nil, &size, &name, 0)
+        var hw_machine = [CChar](repeating: 0, count: Int(size))
+        sysctl(&name, 2, &hw_machine, &size, &name, 0)
+        return String.init(cString: hw_machine)
     }
-    
+
     // Device Family : iPhone,iPad, ...
     public var deviceFamily: String {
-        
-        return UIDevice.currentDevice().model
+        return UIDevice.current.model
     }
-    
+
     //Device Model : iPhone 6, iPhone 6 plus, iPad Air, ...
     public var deviceModel: String {
-        
+
         var model : String
         let deviceCode = UIDevice().deviceCode
         switch deviceCode {
-            
+
         case "iPod1,1":                                 model = "iPod Touch 1G"
         case "iPod2,1":                                 model = "iPod Touch 2G"
         case "iPod3,1":                                 model = "iPod Touch 3G"
         case "iPod4,1":                                 model = "iPod Touch 4G"
         case "iPod5,1":                                 model = "iPod Touch 5G"
-            
+
         case "iPhone1,1":                               model = "iPhone 2G"
         case "iPhone1,2":                               model = "iPhone 3G"
         case "iPhone2,1":                               model = "iPhone 3GS"
-        case "iPhone3,1", "iPhone3,2", "iPhone3,3":     model = "iPhone 4"
         case "iPhone3,1", "iPhone3,2", "iPhone3,3":     model = "iPhone 4"
         case "iPhone4,1":                               model = "iPhone 4S"
         case "iPhone5,1", "iPhone5,2":                  model = "iPhone 5"
@@ -56,103 +50,114 @@ extension UIDevice {
         case "iPhone7,1":                               model = "iPhone 6 Plus"
         case "iPhone8,1":                               model = "iPhone 6S"
         case "iPhone8,2":                               model = "iPhone 6S Plus"
-        
-            
+        case "iPhone8,4":                               model = "iPhone SE"
+        case "iPhone9,1", "iPhone 9,3":                 model = "iPhone 7"
+        case "iPhone9,2", "iPhone 9,4":                 model = "iPhone 7 Plus"
+
+
+
         case "iPad1,1":                                 model = "iPad 1"
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":model = "iPad 2"
         case "iPad3,1", "iPad3,2", "iPad3,3":           model = "iPad 3"
         case "iPad3,4", "iPad3,5", "iPad3,6":           model = "iPad 4"
         case "iPad4,1", "iPad4,2", "iPad4,3":           model = "iPad Air"
-        case "iPad5,1", "iPad5,3", "iPad5,4":           model = "iPad Air 2"
+        case "iPad5,3", "iPad5,4":                      model = "iPad Air 2"
         case "iPad2,5", "iPad2,6", "iPad2,7":           model = "iPad Mini"
         case "iPad4,4", "iPad4,5", "iPad4,6":           model = "iPad Mini 2"
         case "iPad4,7", "iPad4,8", "iPad4,9":           model = "iPad Mini 3"
-            
+        case "iPad5,1", "iPad5,2":                      model = "iPad Mini 4"
+
+
+        case "iPad6,3", "iPad6,4":                      model = "iPad Pro 9.7"
+        case "iPad6,7", "iPad6,8":                      model = "iPad Pro"
+
+
+
         case "i386", "x86_64":                          model = "Simulator"
         default:                                        model = deviceCode //If unkhnown
         }
-        
+
         return model
     }
-    
+
     //Device Jailbreaked or not
     public var deviceJailed: Bool {
         let path = "/Applications/Cydia.app"
-        let fileExists = NSFileManager.defaultManager().fileExistsAtPath(path)
+        let fileExists = FileManager.default.fileExists(atPath: path)
         return fileExists
     }
-    
+
     //Device iOS Version : 8.1, 8.1.3, ...
     public var deviceIOSVersion: String {
-        return UIDevice.currentDevice().systemVersion
+        return UIDevice.current.systemVersion
     }
-    
+
     //Device Screen Width and Height
     public var deviceScreenWidth: CGFloat {
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenSize: CGRect = UIScreen.main.bounds
         let width = screenSize.width;
         return width
     }
     public var deviceScreenHeight: CGFloat {
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenSize: CGRect = UIScreen.main.bounds
         let height = screenSize.height;
         return height
     }
-    
+
     //Device Remaining free space
     public var deviceFreeSpace: Int64? {
-        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let systemAttributes = try! NSFileManager.defaultManager().attributesOfFileSystemForPath(documentDirectoryPath.last!)
-        if let freeSize = systemAttributes[NSFileSystemFreeSize] as? NSNumber {
-            return freeSize.longLongValue
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let systemAttributes = try! FileManager.default.attributesOfFileSystem(forPath: documentDirectoryPath.last!)
+        if let freeSize = systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber {
+            return freeSize.int64Value
         }
         return nil
     }
-    
+
     //Device Orientation String
     public var deviceOrientationString: String {
-        
+
         var orientation : String
-        
-        switch UIDevice.currentDevice().orientation{
-        case .Portrait:
+
+        switch UIDevice.current.orientation{
+        case .portrait:
             orientation="Portrait"
-        case .PortraitUpsideDown:
+        case .portraitUpsideDown:
             orientation="Portrait Upside Down"
-        case .LandscapeLeft:
+        case .landscapeLeft:
             orientation="Landscape Left"
-        case .LandscapeRight:
+        case .landscapeRight:
             orientation="Landscape Right"
-        case .FaceUp:
+        case .faceUp:
             orientation="Face Up"
-        case .FaceDown:
+        case .faceDown:
             orientation="Face Down"
         default:
             orientation="Unknown"
         }
-        
+
         return orientation
     }
-    
-    
+
+
     // is Device Landscape, is Portrait
     public var isDevicePortrait: Bool {
-        return UIDevice.currentDevice().orientation.isPortrait
+        return UIDevice.current.orientation.isPortrait
     }
     public var isDeviceLandscape: Bool {
-        return UIDevice.currentDevice().orientation.isLandscape
+        return UIDevice.current.orientation.isLandscape
     }
-    
+
 }
 
 extension UIApplication {
-    
+
     public var applicationVersion: String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
-    
+
     public var applicationBuild: String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
     }
     
     public var versionBuild: String {
