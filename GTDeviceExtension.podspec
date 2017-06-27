@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "GTDeviceExtension"
-  s.version          = "0.3.0"
+  s.version          = "0.4.0"
   s.summary          = "UIDevice and UIApplication extension for easier access to some device and app infos."
 
 
