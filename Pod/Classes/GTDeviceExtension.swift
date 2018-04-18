@@ -3,11 +3,12 @@
 //  Guglielmo Faglioni
 //
 //  Created by Gorilla Technologies on 2/17/15.
-//  Copyright (c) 2015-2017 Guglielmo Faglioni. All rights reserved.
+//  Copyright (c) 2015-2018 Guglielmo Faglioni. All rights reserved.
 //
 
 import UIKit
 
+@objc
 extension UIDevice {
 
     //Device Code : iPhone7,2, iPhone6,1, ...
@@ -67,6 +68,8 @@ extension UIDevice {
         case "iPad3,1", "iPad3,2", "iPad3,3":           model = "iPad 3"
         case "iPad3,4", "iPad3,5", "iPad3,6":           model = "iPad 4"
         case "iPad6,11", "iPad6,12":                    model = "iPad 5"
+        case "iPad7,5", "iPad7,6":                      model = "iPad 6"
+
         case "iPad4,1", "iPad4,2", "iPad4,3":           model = "iPad Air"
         case "iPad5,3", "iPad5,4":                      model = "iPad Air 2"
         case "iPad2,5", "iPad2,6", "iPad2,7":           model = "iPad Mini"
@@ -113,13 +116,10 @@ extension UIDevice {
     }
 
     //Device Remaining free space
-    public var deviceFreeSpace: Int64? {
+    public var deviceFreeSpace: NSNumber? {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let systemAttributes = try! FileManager.default.attributesOfFileSystem(forPath: documentDirectoryPath.last!)
-        if let freeSize = systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber {
-            return freeSize.int64Value
-        }
-        return nil
+        return systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber
     }
 
     //Device Orientation String
@@ -158,6 +158,7 @@ extension UIDevice {
 
 }
 
+@objc
 extension UIApplication {
 
     public var applicationVersion: String {
